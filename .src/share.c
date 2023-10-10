@@ -11,10 +11,9 @@
                                                                                                                                                            
 #define FROM_PATH 0                                                                                                                                        
 #define PADDING_SIZE 300                                                                                                                                   
-#define MAX_CLIENTS 20                 
-#define HTTP_REQUEST_BUFFER 1024 * 10
+#define MAX_CLIENTS 20                                                                                                                                     
                                                                                                                                                            
-#define SHARE_BUFFER_PATH "./.src/share-buffer.txt"                                                                                                             
+#define SHARE_BUFFER_PATH "./share-buffer.txt"                                                                                                             
                                                                                                                                                            
 #if FROM_PATH                                                                                                                                              
         #undef SHARE_BUFFER_PATH                                                                                                                           
@@ -45,13 +44,7 @@ serving stays live until you kill the process\n\n");
         char* buffer;                                                                                                                                      
 
         const char* headers = "HTTP/1.1 200 OK\nContent-Type : text/html; charset=UTF-8\n";                                                                
-        const char* styling = "";                                                                                                                          
-"<style>\                                                                                                                                                  
-        pre{\                                                                                                                                              
-                font-family : consolas;\                                                                                                                   
-                background : gray;\                                                                                                                        
-        }\                                                                                                                                                 
-</style>";                                                                                                                                                 
+        const char* styling = "<style>pre{font-family : consolas;background : gray;}</style>";                                                                                                                                             
                                                                                                                                                            
         if(argc > 2){                                                                                                                                      
                 FILE* fptr = fopen(argv[2], "r");                                                                                                          
@@ -128,7 +121,7 @@ serving stays live until you kill the process\n\n");
         printf("Serving at PORT %d\n\n", PORT);                                                                                                            
                                                                                                                                                            
         int address_len = sizeof(address);                                                                                                                 
-        char request[HTTP_REQUEST_BUFFER] = {0};                                                                                                                          
+        char request[1024] = {0};                                                                                                                          
                                                                                                                                                            
         while(1){                                                                                                                                          
                 int new_socket;                                                                                                                            
@@ -136,12 +129,14 @@ serving stays live until you kill the process\n\n");
                 new_socket = accept(server_sockfd, (struct sockaddr*)(&address), (socklen_t*)(&address_len));                                              
                 recv(new_socket, request, 1024, 0);                                                                                                        
                 printf("Request : %s\n\n", request);                                                                                                       
-                bzero(request, HTTP_REQUEST_BUFFER);                                                                                                                      
+                bzero(request, 1024);                                                                                                                      
                                                                                                                                                            
                 send(new_socket, response, strlen(response), 0);                                                                                           
                 close(new_socket);                                                                                                                         
-                                                                                                                          
+
+                pid_t pid = fork();                                                                                                                        
                                                                                                                                                            
+                                                                                                                                           
         }                                                                                                                                                  
                                                                                                                                                            
                                                                                                                                                            
@@ -150,4 +145,4 @@ serving stays live until you kill the process\n\n");
                                                                                                                                                            
                                                                                                                                                            
         return 0;                                                                                                                                          
-}                                  
+}             
