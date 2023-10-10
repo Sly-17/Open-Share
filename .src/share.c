@@ -32,10 +32,8 @@ int main(int argc, char* argv[]){
         if(argc < 2 || strncmp(argv[1], "-h", 2) == 0 || strncmp(argv[1], "-help", 5) == 0){                                                               
                 printf("Usage : share [OPTION] [FILE]\n");                                                                                                 
                 printf("share is a tool that allows serving content (markup or plain text) over HTTP.\n\n");                                               
-                printf("SERVING BY PASTING CONTENT:\nExample - To share some content over HTTP at PORT 4993, run : share 4993\nPaste your content and hit <
-enter> followed by <ctrl c> to start serving. \nThe serving stays live on PORT 4993 until you kill the process.\n\n");                                     
-                printf("SERVING A FILE:\nExample - To server a file say `../data/data.txt` over HTTP at PORT 3829, run : share 3829 ../data/data.txt \nThe 
-serving stays live until you kill the process\n\n");                                                                                                       
+                printf("SERVING BY PASTING CONTENT:\nExample - To share some content over HTTP at PORT 4993, run : share 4993\nPaste your content and hit <enter> followed by <ctrl c> to start serving. \nThe serving stays live on PORT 4993 until you kill the process.\n\n");                                     
+                printf("SERVING A FILE:\nExample - To server a file say `../data/data.txt` over HTTP at PORT 3829, run : share 3829 ../data/data.txt \nThe serving stays live until you kill the process\n\n");                                                                                                       
                 exit(0);                                                                                                                                   
         }                                                                                                                                                  
                                                                                                                                                            
